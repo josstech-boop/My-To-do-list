@@ -12,4 +12,5 @@ body {
 .title {
     text-decoration: underline;
     text-decoration-color: blueviolet;
+    font-size: 4rem;
 }

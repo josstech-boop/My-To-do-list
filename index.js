@@ -16,12 +16,13 @@ boton.addEventListener('click', () => {
     //Dibujar checkbox
     let checkbox = document.createElement('input')
     checkbox.setAttribute('type', 'checkbox')
-    checkbox.className = 'me-2'
+    checkbox.className = 'me-2 fs-3'
 
     
 
     //Dibujando el label
     let label = document.createElement('label')
+    label.className='fs-3'
     //Pendienye algo ... (insertar texto en el label)
 
     checkbox.addEventListener('click', () => {
@@ -35,7 +36,7 @@ boton.addEventListener('click', () => {
     let sup = document.createElement('sup')
     sup.insertAdjacentHTML('afterbegin','<i class="bi bi-trash-fill"></i>')
     // sup.textContent = 'X'
-    sup.className= 'text-danger fs-6'
+    sup.className= 'text-danger fs-3 '
 
       sup.addEventListener('click', () => {
         div.remove()
