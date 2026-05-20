@@ -1,0 +1,15 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background: linear-gradient(120deg, rgb(74, 0, 220), blueviolet, white );
+    margin: 10rem auto;
+    min-height: 100vh;
+
+}
+
+.title {
+    text-decoration: underline;
+    text-decoration-color: blueviolet;
+}
