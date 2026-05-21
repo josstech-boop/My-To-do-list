@@ -1,14 +1,24 @@
+let data = []
 
-let data = [
-    { id: 1, texto: 'Holaaa', estadoConpletado: true },
-    { id: 2, texto: 'Joselyn', estadoConpletado: false }
-]
+if(JSON.parse(localStorage.getItem('data'))){
+    data = JSON.parse(localStorage.getItem('data'))
+}else{
+    localStorage.setItem('data', JSON.stringify([]))
+
+} 
 
 let input = document.querySelector('#inputTarea')
 let boton = document.querySelector('#btnTarea')
 let tareas = document.querySelector('#tareas')
+// localStorage.getItem() => Me permite traer informacion
+// localStorage.setItem() => me Permite Ingresar informacion
 
-    
+const getNextID = () =>{
+
+    return data.length > 0 ? data[data.length -1 ].id + 1 : 1
+
+}
+
 const DibujarElementos = (info = null, i = null) => {
     //Dibujar div de tarea
     let div = document.createElement('div')
@@ -28,14 +38,18 @@ const DibujarElementos = (info = null, i = null) => {
     let sup = document.createElement('sup')
     sup.insertAdjacentHTML('afterbegin', '<i class="bi bi-trash-fill"></i>')
     // sup.textContent = 'X'
-    sup.className = 'text-danger fs-3 '
+    sup.className = 'eliminar text-danger fs-3'
 
     if (info == null || i == null) {
-        checkbox.setAttribute('id', data.length + 1)
+        checkbox.setAttribute('id',getNextID())
         label.textContent = input.value
+        sup.setAttribute('id',getNextID())
+
     } else {
         checkbox.setAttribute('id', info[i].id)
         label.textContent = info[i].texto
+        sup.setAttribute('id',info[i].id)
+
     }
     div.append(checkbox)
     div.append(label)
@@ -66,8 +80,9 @@ const DibujarTodo = () => {
 boton.addEventListener('click', () => {
 
     data.push(
-        { id: data.length + 1, texto: input.value, estadoConpletado: false }
+        { id: getNextID(), texto: input.value, estadoConpletado: false }
     )
+    localStorage.setItem('data', JSON.stringify(data))
     tareas.innerHTML = ''
     DibujarTodo();
     input.value = ''
@@ -85,6 +100,9 @@ tareas.addEventListener('click', (event) => {
         } else {
             event.target.nextSibling.classList.remove('text-decoration-line-through')
         }
+    } else if (event.target.parentElement.classList.contains('eliminar')) {
+        event.target.parentElement.parentElement.remove()
+        data = data.filter(item => item.id != event.target.parentElement.id)
     }
 })
 
